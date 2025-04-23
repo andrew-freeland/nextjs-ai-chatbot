@@ -1,4 +1,4 @@
-import { auth0ptions } from '@/app/(auth)/auth';
+import { authOptions } from '@/app/(auth)/auth';
 import type { ArtifactKind } from '@/components/artifact';
 import {
   deleteDocumentsByIdAfterTimestamp,

@@ -1,8 +1,11 @@
-export const runtime = 'nodejs';
-
 import NextAuth from 'next-auth';
 import { authOptions } from '@/app/(auth)/auth';
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+const handlers = {
+  GET: handler,
+  POST: handler,
+};
+
+export { handlers as GET, handlers as POST };

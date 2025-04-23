@@ -210,3 +210,49 @@ launcher.addEventListener("click", function () {
       hour: "numeric", minute: "2-digit"
     });
   }
+  window.bbpConfirmSlot = function (slot) {
+    preload.innerHTML = `
+      <div><strong>Confirm this time:</strong><br>${formatTime(slot.start)}</div>
+      <div style="margin-top:10px;">
+        <input id="bbp-name" placeholder="Your name" style="width:95%;padding:6px;margin-bottom:6px;" />
+        <input id="bbp-email" placeholder="Your email" style="width:95%;padding:6px;" />
+        <button class="bbp-button" style="margin-top:10px;" onclick="window.bbpBookSlot('${slot.start}', '${slot.end}')">Confirm Booking</button>
+        <button class="bbp-button" style="background:#eee;color:#333;margin-top:5px;" onclick="window.bbpShowBooking()">Back</button>
+      </div>
+    `;
+  };
+
+  window.bbpBookSlot = function (start, end) {
+    var name = document.getElementById("bbp-name").value;
+    var email = document.getElementById("bbp-email").value;
+
+    if (!name || !email) {
+      alert("Please enter your name and email.");
+      return;
+    }
+
+    preload.innerHTML = `<div>Booking your appointment...</div>`;
+
+    fetch("https://script.google.com/macros/s/AKfycbx3xu3YhMR7Fq2cRpufAvvrlYo55HMC76_7Y8yCK6b6BQMX_KMfdtkSyItU6ZGJkOU/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        start: start,
+        end: end
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      preload.innerHTML = `
+        <div><strong>You're confirmed!</strong></div>
+        <div style="margin-top:8px;">We’ve booked your meeting. A confirmation email is on the way.</div>
+        <button class="bbp-button" onclick="iframe.style.display='block'; preload.style.display='none'; closeBtn.style.display='block';">OK</button>
+      `;
+    })
+    .catch(err => {
+      console.error("Booking failed", err);
+      preload.innerHTML = `<div style="color:red;">Something went wrong. Please try again.</div>`;
+    });
+  };

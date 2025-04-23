@@ -1,8 +1,11 @@
 import NextAuth from 'next-auth';
 import { authOptions } from '@/app/(auth)/auth';
+import { NextRequest } from 'next/server';
 
-const handler = NextAuth(authOptions);
+export async function GET(req: NextRequest) {
+  return NextAuth(req, authOptions);
+}
 
-// This is correct for App Router in NextAuth v5+
-export const GET = handler;
-export const POST = handler;
+export async function POST(req: NextRequest) {
+  return NextAuth(req, authOptions);
+}

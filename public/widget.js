@@ -1,6 +1,6 @@
 (function () {
   var brandColor = "#EB760F";
-  var chatUrl = "https://chat.mybuilderbot.com/chat"; // <-- Use your actual working iframe domain
+  var chatUrl = "https://chat.mybuilderbot.com"; // <-- Use your actual working iframe domain
 
   // Inject styles
   var style = document.createElement("style");

@@ -77,7 +77,6 @@
   window.addEventListener("load", function () {
     iframe.style.display = "block";
   });
-
   // Launcher click toggles visibility
   launcher.addEventListener("click", function () {
     var isMobile = window.innerWidth < 600;

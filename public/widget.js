@@ -1,6 +1,6 @@
 (function () {
   var brandColor = "#EB760F";
-  var chatUrl = "https://chat.mybuilderbot.com";
+  var chatUrl = "https://chat.mybuilderbot.com/widget.html";
 
   // Inject styles
   var style = document.createElement("style");

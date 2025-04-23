@@ -124,12 +124,16 @@
 
   // Create close button
   var closeBtn = document.createElement("div");
-  closeBtn.id = "bbp-chat-close";
-  closeBtn.innerHTML = "×";
-  closeBtn.onclick = function () {
-    iframe.style.display = "none";
-  };
-  document.body.appendChild(closeBtn);
+closeBtn.id = "bbp-chat-close";
+closeBtn.innerHTML = "&times;";
+closeBtn.style.display = "none"; // start hidden
+
+closeBtn.onclick = function () {
+  iframe.style.display = "none";
+  closeBtn.style.display = "none";
+};
+
+document.body.appendChild(closeBtn);
 
   // Preload welcome message with suggested actions
   var preload = document.createElement("div");
@@ -145,10 +149,12 @@
   document.body.appendChild(preload);
 
   // Launcher click → opens chat
-  launcher.addEventListener("click", function () {
-    preload.style.display = "none";
-    iframe.style.display = "block";
-  });
+launcher.addEventListener("click", function () {
+  preload.style.display = "none";
+  iframe.style.display = "block";
+  closeBtn.style.display = "block";
+});
+
 
   // Auto-expand on load (after 2s)
   window.addEventListener("load", function () {

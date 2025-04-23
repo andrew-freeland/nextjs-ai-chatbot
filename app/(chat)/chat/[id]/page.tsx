@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import { auth0ptions } from '@/app/(auth)/auth';
+import { authOptions } from '@/app/(auth)/auth';
 import { Chat } from '@/components/chat';
 import { getChatById, getMessagesByChatId } from '@/lib/db/queries';
 import { DataStreamHandler } from '@/components/data-stream-handler';

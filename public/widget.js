@@ -150,11 +150,16 @@ document.body.appendChild(closeBtn);
 
   // Launcher click → opens chat
 launcher.addEventListener("click", function () {
-  preload.style.display = "none";
-  iframe.style.display = "block";
-  closeBtn.style.display = "block";
+  // Only show preload panel on first click
+  if (iframe.style.display === "none" && preload.style.display === "none") {
+    preload.style.display = "block";
+    closeBtn.style.display = "none";
+  } else {
+    preload.style.display = "none";
+    iframe.style.display = "block";
+    closeBtn.style.display = "block";
+  }
 });
-
 
   // Auto-expand on load (after 2s)
   window.addEventListener("load", function () {

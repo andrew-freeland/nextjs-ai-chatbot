@@ -5,7 +5,7 @@ import {
   smoothStream,
   streamText,
 } from 'ai';
-import { auth } from '@/app/(auth)/auth';
+import { auth0ptions } from '@/app/(auth)/auth';
 import { systemPrompt } from '@/lib/ai/prompts';
 import {
   deleteChatById,
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
       selectedChatModel: string;
     } = await request.json();
 
-    const session = await auth();
+    const session = await getServerSession(authOptions);
 
     if (!session || !session.user || !session.user.id) {
       return new Response('Unauthorized', { status: 401 });
@@ -173,7 +173,7 @@ export async function DELETE(request: Request) {
     return new Response('Not Found', { status: 404 });
   }
 
-  const session = await auth();
+  const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
     return new Response('Unauthorized', { status: 401 });

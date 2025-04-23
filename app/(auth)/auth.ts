@@ -1,4 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth from 'next-auth';
 
 export const authOptions = {
   providers: [
@@ -18,3 +19,6 @@ export const authOptions = {
   },
   secret: process.env.AUTH_SECRET,
 };
+
+// ✅ This line is what your other files expect when calling `auth()`
+export const { auth } = NextAuth(authOptions);

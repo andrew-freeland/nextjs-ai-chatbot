@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { createUser, getUser } from '@/lib/db/queries';
 
-import { signIn } from './auth';
+import { signIn } from 'next-auth/react';
 
 const authFormSchema = z.object({
   email: z.string().email(),

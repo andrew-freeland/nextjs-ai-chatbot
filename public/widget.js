@@ -1,5 +1,4 @@
 (function () {
-  // Brand styles
   var brandColor = "#EB760F";
   var chatUrl = "https://chat.mybuilderbot.com";
 
@@ -48,6 +47,51 @@
       color: #333;
       cursor: pointer;
       z-index: 10000;
+      background: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    #bbp-preload-message {
+      position: fixed;
+      bottom: 600px;
+      right: 20px;
+      background: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      font-family: 'Space Grotesk', sans-serif;
+      z-index: 9999;
+      max-width: 320px;
+      animation: fadein 0.4s ease-out;
+    }
+    #bbp-prompt-buttons {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .bbp-button {
+      padding: 8px 12px;
+      font-size: 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      border: 1px solid ${brandColor};
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: white;
+      color: ${brandColor};
+      transition: all 0.2s ease;
+    }
+    .bbp-button:hover {
+      background-color: ${brandColor};
+      color: white;
+    }
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     @media (max-width: 600px) {
       #bbp-chat-frame {
@@ -58,32 +102,58 @@
         bottom: 0;
         border-radius: 0;
       }
+      #bbp-chat-close {
+        top: 14px;
+        right: 14px;
+      }
     }
   `;
   document.head.appendChild(style);
-  // Create chat launcher
+
+  // Create launcher
   var launcher = document.createElement("div");
   launcher.id = "bbp-chat-launcher";
   launcher.innerText = "💬";
   document.body.appendChild(launcher);
 
-  // Create iframe container
+  // Create iframe
   var iframe = document.createElement("iframe");
   iframe.id = "bbp-chat-frame";
   iframe.src = chatUrl;
   document.body.appendChild(iframe);
 
-  // Open on load
-  window.addEventListener("load", function () {
+  // Create close button
+  var closeBtn = document.createElement("div");
+  closeBtn.id = "bbp-chat-close";
+  closeBtn.innerHTML = "×";
+  closeBtn.onclick = function () {
+    iframe.style.display = "none";
+  };
+  document.body.appendChild(closeBtn);
+
+  // Preload welcome message with suggested actions
+  var preload = document.createElement("div");
+  preload.id = "bbp-preload-message";
+  preload.innerHTML = `
+    <div><strong>Hello there!</strong><br>How can we help you?</div>
+    <div id="bbp-prompt-buttons">
+      <button class="bbp-button" onclick="window.open('${chatUrl}', '_blank')">Ask about services</button>
+      <button class="bbp-button" onclick="window.open('${chatUrl}', '_blank')">Schedule a call</button>
+      <button class="bbp-button" onclick="window.open('${chatUrl}', '_blank')">Access account data</button>
+    </div>
+  `;
+  document.body.appendChild(preload);
+
+  // Launcher click → opens chat
+  launcher.addEventListener("click", function () {
+    preload.style.display = "none";
     iframe.style.display = "block";
   });
-  // Launcher click toggles visibility
-  launcher.addEventListener("click", function () {
-    var isMobile = window.innerWidth < 600;
-    if (isMobile) {
-      iframe.style.width = "100vw";
-      iframe.style.height = "100vh";
-    }
-    iframe.style.display = "block";
+
+  // Auto-expand on load (after 2s)
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      preload.style.display = "block";
+    }, 2000);
   });
 })();

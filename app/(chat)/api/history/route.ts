@@ -1,4 +1,4 @@
-import { auth0ptions } from '@/app/(auth)/auth';
+import { authOptions } from '@/app/(auth)/auth';
 import { NextRequest } from 'next/server';
 import { getChatsByUserId } from '@/lib/db/queries';
 

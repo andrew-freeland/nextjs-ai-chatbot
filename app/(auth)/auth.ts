@@ -1,8 +1,6 @@
-import { NextAuthOptions } from 'next-auth';
-import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const authOptions: NextAuthOptions = {
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'Bypass Login',
@@ -15,8 +13,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  session: {
-    strategy: 'jwt',
-  },
+  session: { strategy: 'jwt' },
   secret: process.env.AUTH_SECRET,
 };

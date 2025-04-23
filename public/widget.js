@@ -1,7 +1,7 @@
 (function () {
   // Brand styles
   var brandColor = "#EB760F";
-  var chatUrl = "https://nextjs-ai-chatbot-iota-dun-32.vercel.app";
+  var chatUrl = "https://chat.mybuilderbot.com";
 
   // Inject styles
   var style = document.createElement("style");

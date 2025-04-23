@@ -163,3 +163,44 @@ launcher.addEventListener("click", function () {
     }, 2000);
   });
 })();
+  // -- BOOKING PANEL --
+  window.bbpShowBooking = function () {
+    preload.innerHTML = `<div><strong>Pick a time that works for you</strong><br><div id="bbp-time-slots" style="margin-top:10px;"></div>
+      <button class="bbp-button" onclick="window.bbpShowMoreSlots()">Show more</button>
+    </div>`;
+    preload.style.display = "block";
+    window.bbpFetchSlots(0);
+  };
+
+  var bbpSlotOffset = 0;
+
+  window.bbpShowMoreSlots = function () {
+    bbpSlotOffset += 5;
+    window.bbpFetchSlots(bbpSlotOffset);
+  };
+
+  window.bbpFetchSlots = function (offset) {
+    fetch("https://script.google.com/macros/s/AKfycbycTErCQ5RxZlHPiM7lmP_4qq0gv0E9L7_VudXZSv_i-XK5MA/exec?offset=" + offset)
+      .then(res => res.json())
+      .then(data => {
+        var container = document.getElementById("bbp-time-slots");
+        if (!container) return;
+        data.slots.forEach(slot => {
+          var btn = document.createElement("button");
+          btn.className = "bbp-button";
+          btn.innerText = formatTime(slot.start);
+          btn.onclick = function () {
+            window.bbpConfirmSlot(slot);
+          };
+          container.appendChild(btn);
+        });
+      });
+  };
+
+  function formatTime(iso) {
+    var d = new Date(iso);
+    return d.toLocaleString("en-US", {
+      weekday: "short", month: "short", day: "numeric",
+      hour: "numeric", minute: "2-digit"
+    });
+  }

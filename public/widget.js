@@ -33,6 +33,7 @@
       right: 20px;
       width: 400px;
       height: 500px;
+      display: none;
       border: none;
       z-index: 9998;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);

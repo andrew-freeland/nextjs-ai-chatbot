@@ -1,8 +1,7 @@
 import { cookies } from 'next/headers';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { getServerSession } from 'next-auth'; // ✅ CORRECT IMPORT
-import { authOptions } from '../(auth)/auth';
+import { auth } from '@/auth'; // Updated import for NextAuth.js v5
 import Script from 'next/script';
 
 export const experimental_ppr = true;
@@ -13,7 +12,7 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   const [session, cookieStore] = await Promise.all([
-    getServerSession(authOptions), // ✅ CORRECT USAGE
+    auth(), // Updated function for NextAuth.js v5
     cookies(),
   ]);
   const isCollapsed = cookieStore.get('sidebar:state')?.value !== 'true';

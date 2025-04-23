@@ -142,26 +142,27 @@ document.body.appendChild(closeBtn);
   preload.innerHTML = `
     <div><strong>Hello there!</strong><br>How can we help you?</div>
     <div id="bbp-prompt-buttons">
-      <button class="bbp-button" onclick="window.open('${chatUrl}', '_blank')">Ask about services</button>
-      <button class="bbp-button" onclick="window.open('${chatUrl}', '_blank')">Schedule a call</button>
-      <button class="bbp-button" onclick="window.open('${chatUrl}', '_blank')">Access account data</button>
+      <button class="bbp-button" onclick="window.bbpShowIframe()">Ask about services</button>
+      <button class="bbp-button" onclick="window.bbpShowIframe()">Schedule a call</button>
+      <button class="bbp-button" onclick="window.bbpShowIframe()">Access account data</button>
     </div>
   `;
   document.body.appendChild(preload);
 
   // Launcher click → opens chat
 launcher.addEventListener("click", function () {
-  // Only show preload panel on first click
   if (iframe.style.display === "none" && preload.style.display === "none") {
     preload.style.display = "block";
     closeBtn.style.display = "none";
   } else {
     preload.style.display = "none";
     iframe.style.display = "block";
+    if (!iframe.src) {
+      iframe.src = iframe.dataset.src;
+    }
     closeBtn.style.display = "block";
   }
 });
-
   // Auto-expand on load (after 2s)
   window.addEventListener("load", function () {
     setTimeout(function () {
@@ -256,3 +257,12 @@ launcher.addEventListener("click", function () {
       preload.innerHTML = `<div style="color:red;">Something went wrong. Please try again.</div>`;
     });
   };
+window.bbpShowIframe = function () {
+  preload.style.display = "none";
+  iframe.style.display = "block";
+  if (!iframe.src) {
+    iframe.src = iframe.dataset.src;
+  }
+  closeBtn.style.display = "block";
+};
+

@@ -27,32 +27,36 @@
     #bbp-chat-launcher:hover {
       background-color: #cf670f;
     }
-    #bbp-chat-frame {
+   #bbp-chat-frame {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
   width: 400px;
   height: 500px;
-  max-width: 90vw;
-  max-height: 90vh;
-  background: white;
+  border: none;
+  z-index: 9998;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
   border-radius: 10px;
-  overflow: hidden;
   display: none;
 }
 
-    #bbp-chat-close {
-      position: absolute;
-      top: 10px;
-      right: 14px;
-      font-size: 22px;
-      color: #333;
-      cursor: pointer;
-      z-index: 10000;
-      background: white;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      text-align: center;
-      line-height: 30px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+#bbp-chat-close {
+  position: fixed;
+  bottom: 570px;
+  right: 34px;
+  font-size: 22px;
+  color: #333;
+  cursor: pointer;
+  z-index: 10000;
+  background: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: none;
+}
     }
     #bbp-preload-message {
       position: fixed;
@@ -92,20 +96,21 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    @media (max-width: 600px) {
-      #bbp-chat-frame {
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        border-radius: 0;
-      }
-      #bbp-chat-close {
-        top: 14px;
-        right: 14px;
-      }
-    }
+   @media (max-width: 600px) {
+  #bbp-chat-frame {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+  }
+  #bbp-chat-close {
+    top: 14px;
+    right: 14px;
+    bottom: auto;
+  }
+}
   `;
   document.head.appendChild(style);
 

@@ -28,18 +28,16 @@
       background-color: #cf670f;
     }
     #bbp-chat-frame {
-      position: fixed;
-      bottom: 90px;
-      right: 20px;
-      width: 400px;
-      height: 500px;
-      display: none;
-      border: none;
-      z-index: 9998;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      border-radius: 10px;
-      display: none;
-    }
+  width: 400px;
+  height: 500px;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  display: none;
+}
+
     #bbp-chat-close {
       position: absolute;
       top: 10px;
@@ -131,8 +129,11 @@ closeBtn.style.display = "none"; // start hidden
 
 closeBtn.onclick = function () {
   iframe.style.display = "none";
+  preload.style.display = "none";
   closeBtn.style.display = "none";
+  chatOpen = false;
 };
+
 
 document.body.appendChild(closeBtn);
 
@@ -150,16 +151,22 @@ document.body.appendChild(closeBtn);
   document.body.appendChild(preload);
 
   // Launcher click → opens chat
+var chatOpen = false;
+
 launcher.addEventListener("click", function () {
-  if (iframe.style.display === "none" && preload.style.display === "none") {
+  if (!chatOpen) {
     preload.style.display = "block";
+    iframe.style.display = "none";
     closeBtn.style.display = "none";
+    chatOpen = true;
   } else {
     preload.style.display = "none";
     iframe.style.display = "block";
+
     if (!iframe.src) {
       iframe.src = iframe.dataset.src;
     }
+
     closeBtn.style.display = "block";
   }
 });

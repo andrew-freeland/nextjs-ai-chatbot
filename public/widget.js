@@ -120,7 +120,7 @@
   // Create iframe
   var iframe = document.createElement("iframe");
   iframe.id = "bbp-chat-frame";
-  iframe.src = chatUrl;
+  iframe.dataset.src = chatUrl;
   document.body.appendChild(iframe);
 
   // Create close button
